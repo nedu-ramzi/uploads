@@ -5,6 +5,7 @@ import cors from 'cors';
 import compression from 'compression';
 import { config } from './config/main.config';
 import router from './routes/index';
+import { errorHandler } from './helpers/errors.helpers';
 
 const app = express();
 const server = http.createServer(app);
@@ -17,6 +18,9 @@ app.use(cors({
     credentials: true
 }));
 app.use(compression());
+
+//error Handler
+errorHandler;
 
 //routes
 app.use('/', router());

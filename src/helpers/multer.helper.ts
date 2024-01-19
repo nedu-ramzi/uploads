@@ -1,6 +1,5 @@
 import multer from 'multer';
 import { Request } from 'express';
-import { ApplicationError } from '../helpers/errors.helpers';
 
 const FILE_TYPE_MAP = {
     'image/png': 'png',
