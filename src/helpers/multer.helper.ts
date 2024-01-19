@@ -11,10 +11,6 @@ const FILE_TYPE_MAP = {
 
 const storage = multer.diskStorage({
     destination: function async(req: Request, file: Request['file'], cb: Function) {
-        const isValid = FILE_TYPE_MAP[file.mimetype as keyof typeof FILE_TYPE_MAP];
-        if (!isValid) {
-            throw new ApplicationError('Invalid Image Type', 400);
-        }
         cb(null, './public/upload')
     },
     filename: function async(req: Request, file: Request['file'], cb: Function) {
@@ -24,15 +20,15 @@ const storage = multer.diskStorage({
     }
 })
 
-// const fileFilter = (req: Request, file: Request['file'], cb: Function)=>{
-//     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png' || file.mimetype === 'image/gif'){
-//         cb(null, true);
-//     }else{
-//         cb({message: 'Unsupported file format'}, false)
-//     }
-// }
+const fileFilter = (req: Request, file: Request['file'], cb: Function)=>{
+    if (file.mimetype in FILE_TYPE_MAP){
+        cb(null, true);
+    }else{
+        cb({message: 'Unsupported file format'}, false)
+    }
+}
 export const upload = multer({
     storage: storage,
-    limits: { fileSize: 10240 },//10mb
-    // fileFilter: fileFilter
+    limits: { fileSize: 1024 * 1024 * 5 },//5mb
+    fileFilter: fileFilter
 });

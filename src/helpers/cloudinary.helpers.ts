@@ -8,8 +8,20 @@ cloudinary.config({
     api_secret: process.env.API_SECRET,
 })
 
-export async function uploads(file: string) {
-    const result = await cloudinary.uploader.upload(file, { folder: "Test", resource_type: "auto" });
-
-    return result;
-}
+exports.uploads = (file: string, folder:string) => {
+    return new Promise((resolve, reject) => {
+        cloudinary.uploader.upload(file, {
+            resource_type: "auto",
+            folder: folder
+        }, (error, result) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve({
+                    url: result.url,
+                    id: result.public_id
+                });
+            }
+        });
+    });
+};
