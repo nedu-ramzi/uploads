@@ -10,6 +10,9 @@ import { errorHandler } from './helpers/errors.helpers';
 const app = express();
 const server = http.createServer(app);
 
+//error Handler
+errorHandler;
+
 //middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -18,9 +21,6 @@ app.use(cors({
     credentials: true
 }));
 app.use(compression());
-
-//error Handler
-errorHandler;
 
 //routes
 app.use('/', router());

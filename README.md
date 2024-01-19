@@ -1,10 +1,8 @@
-
-# Postman Documentation link:
-[](https://documenter.getpostman.com/view/28464426/2s9YsT5njS)
+[# Postman Documentation link:](https://documenter.getpostman.com/view/28464426/2s9YsT5njS)
 
 # Getting Started with Upload REST API
 
-This API was created using Node.js-server side programming language [](https://nodejs.org/en/download).
+This API was created using [Node.js-server](https://nodejs.org/en/download) side programming language.
 
 ## Available Scripts
 
