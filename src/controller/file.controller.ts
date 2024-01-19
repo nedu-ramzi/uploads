@@ -47,27 +47,78 @@ export class FileController {
     }
 
     // get file uploaded
-    // async getFile(req: Request, res: Response){
-    //     try {
-    //         const image = await ImageUpload.findOne({imageUrl});
-    //         if (!image) {
-    //             throw new ApplicationError('Image not found', 404);
-    //         }
-    //         return res.status(200).json({
-    //             "success": true,
-    //             "message": "File fetched Successfully",
-    //             "data": {
-    //                 "image": image
-    //             }
-    //         })
-    //     } catch (error) {
-    //         return res.status(error.code || 500).json({
-    //             "success": false,
-    //             "error": {
-    //                 "message": error.message,
-    //                 "code": error.code
-    //             }
-    //         });
-    //     }
-    // }
+    async getAllFile(req: Request, res: Response){
+        try {
+            const imageUrl = await ImageUpload.find();
+            if (!imageUrl) {
+                throw new ApplicationError('Image not found', 404);
+            }
+            return res.status(200).json({
+                "success": true,
+                "message": "File fetched Successfully",
+                "data": {
+                    "Image Url": imageUrl
+                }
+            })
+        } catch (error) {
+            return res.status(500).json({
+                "success": false,
+                "error": {
+                    "msg": "Error fetchiing all file",
+                    "error": error,
+                }
+            });
+        }
+    }
+
+    // get a file uploaded by id
+    async getFileById(req: Request, res: Response) {
+        try {
+            const id = req.params.id
+            const imageUrl = await ImageUpload.findById(id);
+            if (!imageUrl) {
+                throw new ApplicationError('Image not found', 404);
+            }
+            return res.status(200).json({
+                "success": true,
+                "message": "File fetched Successfully by it url",
+                "data": {
+                    "Image Url": imageUrl
+                }
+            })
+        } catch (error) {
+            return res.status(500).json({
+                "success": false,
+                "error": {
+                    "msg": "Error fetching file by id",
+                    "error": error
+                }
+            });
+        }
+    }
+
+    //Delete file by it ID
+    async deleteFileById(req: Request, res: Response){
+        try {
+            const id = req.params.id
+            const imageUrl = await ImageUpload.findByIdAndDelete(id);
+            if (!imageUrl) {
+                throw new ApplicationError('Image not found', 404);
+            }
+            return res.status(200).json({
+                "success": true,
+                "message": "File deleted Successfully",
+                "data": {
+                    "Image Url": imageUrl
+                }
+            })
+        } catch (error) {
+            return res.status(500).json({
+                "success": false,
+                "error": {
+                    "message": error,
+                }
+            });
+        }
+    }
 }

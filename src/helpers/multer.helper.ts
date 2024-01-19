@@ -20,11 +20,11 @@ const storage = multer.diskStorage({
     }
 })
 
-const fileFilter = (req: Request, file: Request['file'], cb: Function)=>{
+const fileFilter = (req: Request, file: Express.Multer.File, cb: (error: Error | null, acceptFile: boolean) => void) => {
     if (file.mimetype in FILE_TYPE_MAP){
         cb(null, true);
     }else{
-        cb({message: 'Unsupported file format'}, false)
+        cb(new Error('Unsupported file format'), false)
     }
 }
 export const upload = multer({

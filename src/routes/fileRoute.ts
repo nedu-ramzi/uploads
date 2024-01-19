@@ -7,5 +7,8 @@ const fileController = new FileController();
 
 export default (router: Router) => {
     router.post('/upload', upload.array('image'), isFile, fileController.fileUpload);
-    // router.get('/upload', fileController.getFile);
+    router.get('/image', fileController.getAllFile);
+
+    router.get('/image/:id', fileController.getFileById);
+    router.delete('/image/:id', fileController.deleteFileById);
 }
