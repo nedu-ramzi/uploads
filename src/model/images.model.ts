@@ -1,7 +1,8 @@
 import { Schema, model } from "mongoose";
 const imageSchema = new Schema({
     imageUrl:{
-        type: String,
+        type: [String],
+        required: true
     }
 }, { timestamps: true });
 

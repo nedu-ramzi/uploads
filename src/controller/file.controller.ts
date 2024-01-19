@@ -21,7 +21,7 @@ export class FileController {
 
                 const urls = await Promise.all(uploadPromises);
 
-                const image = await ImageUpload.create({ imageUrl: urls });
+                const image = await ImageUpload.create({ imageUrl: urls.map(file => file.secure_url) });
                     
                     return res.status(201).json({
                         "success": true,
@@ -33,11 +33,11 @@ export class FileController {
                     });
 
             } catch (error) {
-                return res.status(error.code || 500).json({
+                return res.status(500).json({
                     "success": false,
                     "error": {
-                        "message": error.message,
-                        "code": error.code
+                        "msg": "Error uploading file",
+                        "message": error
                     }
                 });
             }
